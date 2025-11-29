@@ -34,3 +34,54 @@ class GestionnaireTaches:
                     self.taches[tache.id] = tache
                 if self.taches:
                     self.compteur_id = max(self.taches.keys()) + 1
+
+    def sauvegarder_taches(self):
+        """Sauvegarde les tâches dans le fichier JSON"""
+        data = []
+        for t in self.taches.values():
+            data.append({
+                "id": t.id,
+                "titre": t.titre,
+                "description": t.description,
+                "auteur": t.auteur,
+                "statut": t.statut
+            })
+        with open(self.fichier, "w", encoding="utf-8") as f:
+            json.dump(data, f, indent=4, ensure_ascii=False)
+
+    def ajouter_tache(self, titre, description, auteur):
+        tache = Tache(self.compteur_id, titre, description, auteur)
+        self.taches[self.compteur_id] = tache
+        self.compteur_id += 1
+        self.sauvegarder_taches()
+        return tache
+
+    def supprimer_tache(self, id):
+        if id in self.taches:
+            del self.taches[id]
+
+        taches_nouvelles = {}
+        for t_id in sorted(self.taches.keys()):
+            tache = self.taches[t_id]
+            if t_id > id:
+                tache.id -= 1  
+                taches_nouvelles[tache.id] = tache
+            else:
+                taches_nouvelles[t_id] = tache
+
+        self.taches = taches_nouvelles
+        self.compteur_id -= 1  
+        self.sauvegarder_taches()
+        return True
+        return False
+
+
+    def lister_taches(self):
+        return list(self.taches.values())
+
+    def changer_statut(self,id, nouveau_statut):
+        if id in self.taches:
+            self.taches[id].statut = nouveau_statut
+            self.sauvegarder_taches()
+            return True
+        return False
