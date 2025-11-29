@@ -1,0 +1,5 @@
+# Requirements pour le serveur
+# Aucun package externe nécessaire pour le moment
+# Modules standards utilisés : socket, json, os
+# Version de Python requise :
+python_version >= "3.11"
