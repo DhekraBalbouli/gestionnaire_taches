@@ -59,22 +59,9 @@ class GestionnaireTaches:
     def supprimer_tache(self, id):
         if id in self.taches:
             del self.taches[id]
-
-        taches_nouvelles = {}
-        for t_id in sorted(self.taches.keys()):
-            tache = self.taches[t_id]
-            if t_id > id:
-                tache.id -= 1  
-                taches_nouvelles[tache.id] = tache
-            else:
-                taches_nouvelles[t_id] = tache
-
-        self.taches = taches_nouvelles
-        self.compteur_id -= 1  
-        self.sauvegarder_taches()
-        return True
+            self.sauvegarder_taches()
+            return True
         return False
-
 
     def lister_taches(self):
         return list(self.taches.values())
