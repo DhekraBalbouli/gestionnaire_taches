@@ -1,0 +1,22 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+*.env
+*.egg-info/
+
+# Dossiers virtuels
+venv/
+env/
+
+# Fichiers JSON sensibles
+taches.json
+
+# Docker
+docker-compose.override.yml
+*.log
+
+# IDE / éditeurs
+.vscode/
+.idea/
