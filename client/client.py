@@ -16,19 +16,42 @@ class ClientTaches:
 def menu():
     client = ClientTaches()
     while True:
-        print("\n1. Ajouter tâche\n2. Lister tâches\n3. Supprimer tâche\n4. Changer statut\n5. Quitter")
-        choix = input("Choix : ")
+        print("\n" + "="*40)
+        print("           GESTION DES TÂCHES")
+        print("="*40)
+        print("1. Ajouter une tâche")
+        print("2. Lister les tâches")
+        print("3. Supprimer une tâche")
+        print("4. Changer le statut")
+        print("5. Quitter")
+        choix = input("Votre choix : ").strip()
+
+        if choix not in ["1","2","3","4","5"]:
+            print("Choix invalide, veuillez réessayer.")
+            continue
+
         if choix == "1":
             tache = {
                 "action": "add",
-                "id": input("ID : "),
                 "titre": input("Titre : "),
                 "description": input("Description : "),
                 "auteur": input("Auteur : ")
             }
             print(client.envoyer_requete(tache))
         elif choix == "2":
-            print(client.envoyer_requete({"action": "list"}))
+            response = client.envoyer_requete({"action": "list"})
+            try:
+                taches = json.loads(response)
+                print("\nListe des tâches :")
+                print("-"*40)
+                for t in taches:
+                    print(f"ID: {t['id']} | [{t['statut']}] {t['titre']}")
+                    print(f"Description: {t['description']}")
+                    print(f"Auteur: {t['auteur']}")
+                    print("-"*40)
+            except json.JSONDecodeError:
+                print("Erreur serveur ou réponse invalide :", response)
+
         elif choix == "3":
             id_del = int(input("ID à supprimer : "))
             print(client.envoyer_requete({"action": "del", "id": id_del}))
