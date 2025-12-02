@@ -1,7 +1,7 @@
 import socket
 import threading
 import json
-from gestionnaire_taches import GestionnaireTaches, Tache
+from .gestionnaire_taches import GestionnaireTaches, Tache
 
 class ServeurTaches:
     def __init__(self, host='127.0.0.1', port=5000):
