@@ -7,4 +7,4 @@ COPY ../server/ /app/server/
 #Exposer le port sur lequel le serveur écoute
 EXPOSE 5000
 #Lancer le serveur
-CMD ["python", "server/serveur.py"]
+CMD ["python", "-m", "server.serveur"]
