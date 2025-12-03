@@ -1,0 +1,11 @@
+# Image Python légère
+FROM python:3.11-slim
+
+# Répertoire de travail
+WORKDIR /app
+
+# Copier le code client
+COPY ../client/ ./client/
+
+# Lancer le client
+CMD ["python", "client/client.py"]
