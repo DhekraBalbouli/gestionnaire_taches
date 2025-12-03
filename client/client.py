@@ -2,7 +2,7 @@ import socket
 import json
 
 class ClientTaches:
-    def __init__(self, host='host.docker.internal', port=5000):
+    def __init__(self, host='serveur_taches', port=5000):
         self.host = host
         self.port = port
         self.client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
